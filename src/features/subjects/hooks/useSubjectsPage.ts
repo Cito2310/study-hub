@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSubjects } from "./useSubjects";
+import { useSubjects } from ".";
 import { Subject } from "../subjectsSlice";
 
 export const useSubjectsPage = () => {

@@ -1,8 +1,5 @@
-import { useSubjectsPage } from "./hooks/useSubjectsPage";
-import { SubjectList } from "./components/SubjectList";
-import { CreateModal } from "./components/CreateModal";
-import { DeleteModal } from "./components/DeleteModal";
-import { EditModal } from "./components/EditModal";
+import { useSubjectsPage } from "./hooks";
+import { SubjectList, CreateModal, DeleteModal, EditModal } from "./components";
 
 export const SubjectsPage = () => {
     const {

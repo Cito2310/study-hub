@@ -1,5 +1,5 @@
 import { ModalLayout } from "../../../shared/components/ModalLayout";
-import { useEditModal } from "../hooks/useEditModal";
+import { useEditModal } from "../hooks";
 
 interface EditModalProps {
     subjectName: string;

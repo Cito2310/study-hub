@@ -1,5 +1,5 @@
 import { ModalLayout } from "../../../shared/components/ModalLayout";
-import { useSubjectForm } from "../hooks/useSubjectForm";
+import { useSubjectForm } from "../hooks";
 
 interface CreateModalProps {
     onCreate: (name: string) => void;
