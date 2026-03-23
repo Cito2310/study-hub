@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import subjectsReducer from "../features/subjects/subjectsSlice";
 
 export const store = configureStore({
-    reducer: {},
+    reducer: {
+        subjects: subjectsReducer,
+    },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
