@@ -1,5 +1,7 @@
 import { Node, TextType } from "../nodesSlice";
 import { useNodeEditor } from "../hooks";
+import { FormulaToolbar } from "./FormulaToolbar";
+import { FormulaRenderer } from "./FormulaRenderer";
 
 interface NodeEditorProps {
     node: Node;
@@ -13,6 +15,7 @@ export const NodeEditor = ({ node, onEdit, onAddChild, onDelete }: NodeEditorPro
         name, setName, handleNameBlur,
         text, setText, handleTextBlur,
         textType, handleTextTypeChange,
+        textareaRef, insertAtCursor,
     } = useNodeEditor({ node, onEdit });
 
     const isRoot = node.parentId === null;
@@ -43,7 +46,7 @@ export const NodeEditor = ({ node, onEdit, onAddChild, onDelete }: NodeEditorPro
             {!isRoot && (
                 <>
                     <div className="flex gap-2">
-                        {(["normal", "code"] as TextType[]).map((t) => (
+                        {(["normal", "code", "formula"] as TextType[]).map((t) => (
                             <button
                                 key={t}
                                 type="button"
@@ -54,23 +57,41 @@ export const NodeEditor = ({ node, onEdit, onAddChild, onDelete }: NodeEditorPro
                                         : "border-gray-200 text-gray-500 hover:border-gray-400"
                                 }`}
                             >
-                                {t === "normal" ? "Normal" : "Código"}
+                                {t === "normal" ? "Normal" : t === "code" ? "Código" : "Fórmula"}
                             </button>
                         ))}
                     </div>
 
+                    {textType === "formula" && (
+                        <FormulaToolbar onInsert={insertAtCursor} />
+                    )}
+
                     <textarea
+                        ref={textareaRef}
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         onBlur={handleTextBlur}
-                        placeholder="Escribe el contenido del nodo..."
+                        placeholder={
+                            textType === "formula"
+                                ? "Ej: \\frac{6}{2}"
+                                : "Escribe el contenido del nodo..."
+                        }
                         rows={4}
                         className={`text-sm border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-gray-900 transition-colors w-full resize-none ${
                             textType === "code"
                                 ? "font-mono bg-gray-900 text-green-400 placeholder:text-gray-600"
+                                : textType === "formula"
+                                ? "font-mono text-gray-700"
                                 : "text-gray-700"
                         }`}
                     />
+
+                    {textType === "formula" && text && (
+                        <div className="border border-gray-100 rounded-lg px-4 bg-white">
+                            <p className="text-xs text-gray-400 pt-2">Vista previa</p>
+                            <FormulaRenderer formula={text} />
+                        </div>
+                    )}
                 </>
             )}
         </div>

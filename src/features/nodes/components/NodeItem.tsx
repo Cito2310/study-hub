@@ -1,6 +1,7 @@
 import { Node } from "../nodesSlice";
 import { NodeEditor } from "./NodeEditor";
 import { DeleteNodeModal } from "./DeleteNodeModal";
+import { FormulaRenderer } from "./FormulaRenderer";
 import { useNodeItem } from "../hooks";
 
 interface NodeItemProps {
@@ -76,6 +77,10 @@ export const NodeItem = ({
                                 <pre className="text-xs bg-gray-900 text-green-400 rounded p-3 overflow-x-auto whitespace-pre-wrap mt-2">
                                     {node.text}
                                 </pre>
+                            ) : node.textType === "formula" ? (
+                                <div className="mt-2">
+                                    <FormulaRenderer formula={node.text} />
+                                </div>
                             ) : (
                                 <p className="text-sm text-gray-600 mt-1">{node.text}</p>
                             )
