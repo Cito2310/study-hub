@@ -1,10 +1,5 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { ModalLayout } from "../../../shared/components";
-
-interface FormValues {
-    name: string;
-}
+import { useCreateContentModal } from "../hooks";
 
 interface CreateContentModalProps {
     onCreate: (name: string, parentId: string | null) => void;
@@ -21,20 +16,19 @@ export const CreateContentModal = ({
     rootContents,
     canHaveChildren,
 }: CreateContentModalProps) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-    const [selectedParentId, setSelectedParentId] = useState<string | null>(parentId);
-
-    const availableParents = rootContents.filter((c) => canHaveChildren(c.id));
-
-    const onSubmit = (data: FormValues) => {
-        onCreate(data.name.trim(), selectedParentId);
-        onClose();
-    };
+    const {
+        register,
+        handleSubmit,
+        errors,
+        selectedParentId,
+        setSelectedParentId,
+        availableParents,
+    } = useCreateContentModal({ onCreate, onClose, parentId, rootContents, canHaveChildren });
 
     return (
         <ModalLayout onClose={onClose}>
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Nuevo contenido</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div>
                     <input
                         {...register("name", { required: "El nombre es requerido" })}

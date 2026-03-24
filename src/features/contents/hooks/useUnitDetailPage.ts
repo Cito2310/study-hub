@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { useContents } from "./useContents";
+import { useNodeTree } from "../../nodes/hooks";
 import { Content } from "../contentsSlice";
 
 export const useUnitDetailPage = () => {
@@ -15,19 +16,26 @@ export const useUnitDetailPage = () => {
     );
 
     const contents = useContents(unitId ?? "");
+    const nodeTree = useNodeTree(unitId ?? "");
 
-    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showCreateContentModal, setShowCreateContentModal] = useState(false);
     const [selectedContent, setSelectedContent] = useState<Content | null>(null);
-    const [createParentId, setCreateParentId] = useState<string | null>(null);
+    const [createContentParentId, setCreateContentParentId] = useState<string | null>(null);
 
-    const handleOpenCreateModal = (parentId: string | null = null) => {
-        setCreateParentId(parentId);
-        setShowCreateModal(true);
+    const handleOpenCreateContentModal = (parentId: string | null = null) => {
+        setCreateContentParentId(parentId);
+        setShowCreateContentModal(true);
     };
 
-    const handleCloseCreateModal = () => {
-        setShowCreateModal(false);
-        setCreateParentId(null);
+    const handleCloseCreateContentModal = () => {
+        setShowCreateContentModal(false);
+        setCreateContentParentId(null);
+    };
+
+    const handleSelectContent = (content: Content) => {
+        setSelectedContent(content);
+        const matchingNode = nodeTree.findNodeByName(content.name);
+        if (matchingNode) nodeTree.scrollToNode(matchingNode);
     };
 
     return {
@@ -35,13 +43,13 @@ export const useUnitDetailPage = () => {
         subjectId,
         unit,
         unitId,
-        ...contents,
-        toggle: contents.toggle,
-        showCreateModal,
-        createParentId,
-        handleOpenCreateModal,
-        handleCloseCreateModal,
+        contents,
+        nodeTree,
+        showCreateContentModal,
+        createContentParentId,
+        handleOpenCreateContentModal,
+        handleCloseCreateContentModal,
         selectedContent,
-        setSelectedContent,
+        handleSelectContent,
     };
 };
