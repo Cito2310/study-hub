@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-import { Breadcrumb } from "../../shared/components/Breadcrumb";
+import { Breadcrumb } from "../../shared/components";
 
 export const UnitDetailPage = () => {
     const { subjectId, unitId } = useParams<{ subjectId: string; unitId: string }>();

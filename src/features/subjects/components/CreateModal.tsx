@@ -1,4 +1,4 @@
-import { ModalLayout } from "../../../shared/components/ModalLayout";
+import { ModalLayout } from "../../../shared/components";
 import { useSubjectForm } from "../hooks";
 
 interface CreateModalProps {

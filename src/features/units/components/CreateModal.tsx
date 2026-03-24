@@ -1,4 +1,4 @@
-import { ModalLayout } from "../../../shared/components/ModalLayout";
+import { ModalLayout } from "../../../shared/components";
 import { useUnitForm } from "../hooks";
 
 interface CreateModalProps {

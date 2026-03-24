@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { useUnitsPage } from "./hooks";
 import { UnitList, CreateModal, EditModal, DeleteModal } from "./components";
-import { Breadcrumb } from "../../shared/components/Breadcrumb";
+import { Breadcrumb } from "../../shared/components";
 
 export const SubjectDetailPage = () => {
     const { subjectId } = useParams<{ subjectId: string }>();
