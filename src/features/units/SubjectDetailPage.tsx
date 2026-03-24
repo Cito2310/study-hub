@@ -1,17 +1,10 @@
-import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { useUnitsPage } from "./hooks";
+import { useSubjectDetailPage } from "./hooks";
 import { UnitList, CreateModal, EditModal, DeleteModal } from "./components";
 import { Breadcrumb } from "../../shared/components";
 
 export const SubjectDetailPage = () => {
-    const { subjectId } = useParams<{ subjectId: string }>();
-
-    const subject = useAppSelector((state) =>
-        state.subjects.subjects.find((s) => s.id === subjectId)
-    );
-
     const {
+        subject,
         units,
         createUnit,
         showCreateModal,
@@ -22,7 +15,7 @@ export const SubjectDetailPage = () => {
         unitToEdit,
         setUnitToEdit,
         handleEditModal,
-    } = useUnitsPage(subjectId ?? "");
+    } = useSubjectDetailPage();
 
     if (!subject) {
         return (
