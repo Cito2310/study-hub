@@ -82,7 +82,7 @@ export const NodeItem = ({
                                     <FormulaRenderer formula={node.text} />
                                 </div>
                             ) : (
-                                <p className="text-sm text-gray-600 mt-1">{node.text}</p>
+                                <p className="text-sm text-gray-600 mt-1 whitespace-pre-wrap break-words">{node.text}</p>
                             )
                         )}
                     </>

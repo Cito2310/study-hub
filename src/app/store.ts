@@ -3,6 +3,7 @@ import subjectsReducer from "../features/subjects/subjectsSlice";
 import unitsReducer from "../features/units/unitsSlice";
 import contentsReducer from "../features/contents/contentsSlice";
 import nodesReducer from "../features/nodes/nodesSlice";
+import examsReducer from "../features/exams/examsSlice";
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
         units: unitsReducer,
         contents: contentsReducer,
         nodes: nodesReducer,
+        exams: examsReducer,
     },
 });
 

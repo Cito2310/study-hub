@@ -5,4 +5,5 @@ export const STORAGE_KEYS = {
     units: `${PREFIX}units`,
     contents: `${PREFIX}contents`,
     nodes: `${PREFIX}nodes`,
+    exams: `${PREFIX}exams`,
 };

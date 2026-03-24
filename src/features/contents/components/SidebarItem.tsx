@@ -44,7 +44,7 @@ export const SidebarItem = ({
                     )}
                 </button>
 
-                <span className={`flex-1 text-sm truncate ${content.checked ? "line-through opacity-50" : ""}`}>
+                <span className={`flex-1 text-xs ${content.checked ? "line-through opacity-50" : ""}`}>
                     {content.name}
                 </span>
 
