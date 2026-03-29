@@ -2,6 +2,7 @@ import { Node } from "../nodesSlice";
 import { NodeEditor } from "./NodeEditor";
 import { DeleteNodeModal } from "./DeleteNodeModal";
 import { FormulaRenderer } from "./FormulaRenderer";
+import { GraphRenderer } from "./GraphRenderer";
 import { useNodeItem } from "../hooks";
 
 interface NodeItemProps {
@@ -80,6 +81,10 @@ export const NodeItem = ({
                             ) : node.textType === "formula" ? (
                                 <div className="mt-2">
                                     <FormulaRenderer formula={node.text} />
+                                </div>
+                            ) : node.textType === "graph" ? (
+                                <div className="mt-2">
+                                    <GraphRenderer expression={node.text} />
                                 </div>
                             ) : (
                                 <p className="text-sm text-gray-600 mt-1 whitespace-pre-wrap break-words">{node.text}</p>

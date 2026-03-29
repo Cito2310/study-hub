@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { STORAGE_KEYS } from "../../shared/storageKeys";
 
-export type TextType = "normal" | "code" | "formula";
+export type TextType = "normal" | "code" | "formula" | "graph";
 
 export interface Node {
     id: string;

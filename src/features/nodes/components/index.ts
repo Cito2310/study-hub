@@ -5,3 +5,4 @@ export { CreateNodeModal } from "./CreateNodeModal";
 export { DeleteNodeModal } from "./DeleteNodeModal";
 export { FormulaRenderer } from "./FormulaRenderer";
 export { FormulaToolbar } from "./FormulaToolbar";
+export { GraphRenderer } from "./GraphRenderer";

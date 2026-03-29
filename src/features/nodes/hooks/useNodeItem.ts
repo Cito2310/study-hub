@@ -10,6 +10,7 @@ export const useNodeItem = (selectedNodeId: string | null, nodeId: string) => {
         if (!isEditing) return;
         const handleClickOutside = (e: MouseEvent) => {
             if (cardRef.current && !cardRef.current.contains(e.target as globalThis.Element)) {
+                (document.activeElement as HTMLElement)?.blur();
                 setIsEditing(false);
             }
         };

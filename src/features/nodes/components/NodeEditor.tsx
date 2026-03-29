@@ -2,6 +2,7 @@ import { Node, TextType } from "../nodesSlice";
 import { useNodeEditor } from "../hooks";
 import { FormulaToolbar } from "./FormulaToolbar";
 import { FormulaRenderer } from "./FormulaRenderer";
+import { GraphRenderer } from "./GraphRenderer";
 
 interface NodeEditorProps {
     node: Node;
@@ -46,7 +47,7 @@ export const NodeEditor = ({ node, onEdit, onAddChild, onDelete }: NodeEditorPro
             {!isRoot && (
                 <>
                     <div className="flex gap-2">
-                        {(["normal", "code", "formula"] as TextType[]).map((t) => (
+                        {(["normal", "code", "formula", "graph"] as TextType[]).map((t) => (
                             <button
                                 key={t}
                                 type="button"
@@ -57,7 +58,7 @@ export const NodeEditor = ({ node, onEdit, onAddChild, onDelete }: NodeEditorPro
                                         : "border-gray-200 text-gray-500 hover:border-gray-400"
                                 }`}
                             >
-                                {t === "normal" ? "Normal" : t === "code" ? "Código" : "Fórmula"}
+                                {t === "normal" ? "Normal" : t === "code" ? "Código" : t === "formula" ? "Fórmula" : "Gráfico"}
                             </button>
                         ))}
                     </div>
@@ -66,31 +67,51 @@ export const NodeEditor = ({ node, onEdit, onAddChild, onDelete }: NodeEditorPro
                         <FormulaToolbar onInsert={insertAtCursor} />
                     )}
 
-                    <textarea
-                        ref={textareaRef}
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                        onBlur={handleTextBlur}
-                        placeholder={
-                            textType === "formula"
-                                ? "Ej: \\frac{6}{2}"
-                                : "Escribe el contenido del nodo..."
-                        }
-                        rows={4}
-                        className={`text-sm border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-gray-900 transition-colors w-full resize-none ${
-                            textType === "code"
-                                ? "font-mono bg-gray-900 text-green-400 placeholder:text-gray-600"
-                                : textType === "formula"
-                                ? "font-mono text-gray-700"
-                                : "text-gray-700"
-                        }`}
-                    />
+                    {textType === "graph" ? (
+                        <>
+                            <input
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
+                                onBlur={handleTextBlur}
+                                placeholder="Ej: x^2 + 2*x | (2,2) (3,5)"
+                                className="text-sm border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-gray-900 transition-colors w-full font-mono text-gray-700"
+                            />
+                            {text && (
+                                <div className="border border-gray-100 rounded-lg px-4 py-2 bg-white">
+                                    <p className="text-xs text-gray-400 mb-1">Vista previa</p>
+                                    <GraphRenderer expression={text} />
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <textarea
+                                ref={textareaRef}
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
+                                onBlur={handleTextBlur}
+                                placeholder={
+                                    textType === "formula"
+                                        ? "Ej: \\frac{6}{2}"
+                                        : "Escribe el contenido del nodo..."
+                                }
+                                rows={4}
+                                className={`text-sm border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-gray-900 transition-colors w-full resize-none ${
+                                    textType === "code"
+                                        ? "font-mono bg-gray-900 text-green-400 placeholder:text-gray-600"
+                                        : textType === "formula"
+                                        ? "font-mono text-gray-700"
+                                        : "text-gray-700"
+                                }`}
+                            />
 
-                    {textType === "formula" && text && (
-                        <div className="border border-gray-100 rounded-lg px-4 bg-white">
-                            <p className="text-xs text-gray-400 pt-2">Vista previa</p>
-                            <FormulaRenderer formula={text} />
-                        </div>
+                            {textType === "formula" && text && (
+                                <div className="border border-gray-100 rounded-lg px-4 bg-white">
+                                    <p className="text-xs text-gray-400 pt-2">Vista previa</p>
+                                    <FormulaRenderer formula={text} />
+                                </div>
+                            )}
+                        </>
                     )}
                 </>
             )}
